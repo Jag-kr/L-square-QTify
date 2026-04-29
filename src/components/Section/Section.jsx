@@ -18,6 +18,7 @@ function Section({ title, endpoint }) {
 
   useEffect(() => {
     fetchAlbums();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint]);
 
   const toggleCollapse = () => {
