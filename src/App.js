@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import Navbar from "./components/Navbar/Navbar";
 import Hero from "./components/Hero/Hero";
 import Section from "./components/Section/Section";
@@ -7,21 +6,26 @@ import axios from "axios";
 
 function App() {
   const [topAlbums, setTopAlbums] = useState([]);
-
-  console.log("topAlbums:", topAlbums);
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(
-        "https://qtify-backend.labs.crio.do/albums/top",
-      );
-      setTopAlbums(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const [newAlbums, setNewAlbums] = useState([]);
+  const [songs, setSongs] = useState([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [topRes, newRes, songsRes] = await Promise.all([
+          axios.get("https://qtify-backend.labs.crio.do/albums/top"),
+          axios.get("https://qtify-backend.labs.crio.do/albums/new"),
+          axios.get("https://qtify-backend.labs.crio.do/songs"),
+        ]);
+
+        setTopAlbums(topRes.data);
+        setNewAlbums(newRes.data);
+        setSongs(songsRes.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchData();
   }, []);
 
@@ -30,15 +34,10 @@ function App() {
       <Navbar searchData={topAlbums} />
       <Hero />
 
-      <Section
-        title="Top Albums"
-        endpoint="https://qtify-backend.labs.crio.do/albums/top"
-      />
-
-      <Section
-        title="New Albums"
-        endpoint="https://qtify-backend.labs.crio.do/albums/new"
-      />
+      <Section title="Songs" data={songs} />
+      
+      <Section title="Top Albums" data={topAlbums} />
+      <Section title="New Albums" data={newAlbums} />
     </div>
   );
 }

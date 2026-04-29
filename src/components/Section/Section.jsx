@@ -1,46 +1,28 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Section.module.css";
-import axios from "axios";
+import React, { useState } from "react";
 import Card from "../Card/Card";
+import styles from "./Section.module.css";
 
-function Section({ title, endpoint }) {
-  const [albums, setAlbums] = useState([]);
-  const [isCollapsed, setIsCollapsed] = useState(true);
+function Section({ title, data = [] }) {
+  const [showAll, setShowAll] = useState(false);
 
-  const fetchAlbums = async () => {
-    try {
-      const res = await axios.get(endpoint);
-      setAlbums(res.data);
-    } catch (error) {
-      console.error("Error fetching albums", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAlbums();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endpoint]);
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const displayData = showAll ? data : data.slice(0, 7);
 
   return (
     <div className={styles.section}>
       <div className={styles.header}>
         <h2>{title}</h2>
-        <button className={styles.toggle} onClick={toggleCollapse}>
-          {isCollapsed ? "Show All" : "Collapse"}
+        <button onClick={() => setShowAll(!showAll)}>
+          {showAll ? "Collapse" : "Show All"}
         </button>
       </div>
 
       <div className={styles.grid}>
-        {(isCollapsed ? albums.slice(0, 7) : albums).map((album) => (
+        {displayData.map((item) => (
           <Card
-            key={album.id}
-            image={album.image}
-            follows={album.follows}
-            title={album.title}
+            key={item.id}
+            image={item.image}
+            follows={item.follows}
+            title={item.title}
           />
         ))}
       </div>

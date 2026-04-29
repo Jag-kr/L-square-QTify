@@ -16,7 +16,7 @@ function Navbar({ searchData }) {
 
       <div className={styles.center}>
         <Search
-          placeholder="Search a song of your choice"
+          placeholder="Search a album of your choice"
           searchData={searchData}
         />
       </div>
