@@ -34,10 +34,11 @@ function App() {
       <Navbar searchData={topAlbums} />
       <Hero />
 
-      <Section title="Songs" data={songs} />
-      
-      <Section title="Top Albums" data={topAlbums} />
-      <Section title="New Albums" data={newAlbums} />
+      <Section title="Top Albums" data={topAlbums} type="album-top" />
+
+      <Section title="New Albums" data={newAlbums} type="album-new" />
+
+      <Section title="Songs" data={songs} type="song" />
     </div>
   );
 }

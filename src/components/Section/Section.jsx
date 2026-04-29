@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
 import styles from "./Section.module.css";
+import Carousel from "../Carousel/Carousel";
 
-function Section({ title, data = [] }) {
+function Section({ title, data = [], type }) {
   const [showAll, setShowAll] = useState(false);
-
-  const displayData = showAll ? data : data.slice(0, 7);
 
   return (
     <div className={styles.section}>
@@ -16,16 +15,20 @@ function Section({ title, data = [] }) {
         </button>
       </div>
 
-      <div className={styles.grid}>
-        {displayData.map((item) => (
-          <Card
-            key={item.id}
-            image={item.image}
-            follows={item.follows}
-            title={item.title}
-          />
-        ))}
-      </div>
+      {showAll ? (
+        <div className={styles.grid}>
+          {data.map((item) => (
+            <Card
+              key={item.id}
+              image={item.image}
+              follows={item.follows}
+              title={item.title}
+            />
+          ))}
+        </div>
+      ) : (
+        <Carousel data={data} type={type} />
+      )}
     </div>
   );
 }
