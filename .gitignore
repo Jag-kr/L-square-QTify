@@ -25,3 +25,5 @@ dist-ssr
 .github
 __CRIO__
 build
+assessment
+package-lock.json
