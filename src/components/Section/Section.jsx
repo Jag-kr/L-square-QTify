@@ -1,53 +1,49 @@
-import React, { useState } from "react";
-import Carousel from "../Carousel/Carousel";
+import React, { useEffect, useState } from "react";
 import styles from "./Section.module.css";
+import axios from "axios";
+import Card from "../Card/Card";
 
-function Section({
-  title,
-  data,
-  renderItem,
-  showAllButton = true,
-  isLoading = false,
-}) {
-  const [isExpanded, setIsExpanded] = useState(false);
+function Section({ title, endpoint }) {
+  const [albums, setAlbums] = useState([]);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-  if (isLoading) {
-    return (
-      <section className={styles.section}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>{title}</h2>
-        </div>
-        <div className={styles.loadingText}>Loading...</div>
-      </section>
-    );
-  }
+  const fetchAlbums = async () => {
+    try {
+      const res = await axios.get(endpoint);
+      setAlbums(res.data);
+    } catch (error) {
+      console.error("Error fetching albums", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAlbums();
+  }, [endpoint]);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   return (
-    <section className={styles.section}>
+    <div className={styles.section}>
       <div className={styles.header}>
-        <h2 className={styles.title}>{title}</h2>
-        {showAllButton && (
-          <button
-            className={styles.collapseButton}
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? "Collapse" : "Show All"}
-          </button>
-        )}
+        <h2>{title}</h2>
+        <button className={styles.toggle} onClick={toggleCollapse}>
+          {isCollapsed ? "Show All" : "Collapse"}
+        </button>
       </div>
 
-      {isExpanded ? (
-        <div className={styles.gridSection}>
-          {data.map((item, index) => (
-            <div key={index} className={styles.gridItem}>
-              {renderItem(item)}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <Carousel data={data} renderItem={renderItem} cardsPerView={5} />
-      )}
-    </section>
+      <div className={styles.grid}>
+        {(isCollapsed ? albums.slice(0, 7) : albums).map((album) => (
+          <Card
+            key={album.id}
+            image={album.image}
+            follows={album.follows}
+            title={album.title}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

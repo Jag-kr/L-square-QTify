@@ -1,65 +1,49 @@
 .card {
+  width: 159px;
+  height: 232px;
   display: flex;
   flex-direction: column;
+  gap: 6px;
+}
+
+.cardImageWrapper {
+  position: relative;
+  width: 159px;
+  height: 205px;
+  background: var(--color-white);
   border-radius: 10px;
   overflow: hidden;
-  background-color: #121212;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12);
-}
-
-.cardImage {
+.cardImageWrapper img {
   width: 100%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 8px;
-  background-color: #1a1a1a;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* 🔥 THIS IS THE FIX */
+.follows {
+  position: absolute;
+  bottom: 2px;
+  left: 8px;
+
   display: flex;
   align-items: center;
-  justify-content: center;
+
+  padding: 4px 8px;
+  height: 23px;
+
+  background: var(--color-black);
+  border-radius: 10px;
+
+  font-size: 10px;
+  line-height: 15px;
+  color: var(--color-white);
 }
 
-.cardImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cardFooter {
-  padding: 16px 12px;
-  background-color: #121212;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cardInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cardTitle {
-  margin: 0;
+.title {
   font-size: 14px;
-  font-weight: 600;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.chip {
-  align-self: flex-start;
-}
-
-.chip :global(.MuiChip-label) {
-  font-size: 12px;
-  font-weight: 500;
+  color: var(--color-white);
+  margin: 0;
 }

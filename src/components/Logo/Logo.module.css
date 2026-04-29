@@ -1,0 +1,9 @@
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 34px; /* based on figma */
+  cursor: pointer;
+}

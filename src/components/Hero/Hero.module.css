@@ -7,3 +7,18 @@
   text-align: center;
   gap: 30px;
 }
+
+.heroText {
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+}
+
+.heroText h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.heroImage img {
+  width: 212px;
+}

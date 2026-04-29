@@ -8,14 +8,22 @@ import styles from "./Navbar.module.css";
 function Navbar({ searchData }) {
   return (
     <nav className={styles.navbar}>
-      <Link to="/">
-        <Logo />
-      </Link>
-      <Search
-        placeholder="Search a song of your choice"
-        searchData={searchData}
-      />
-      <Button>Give Feedback</Button>
+      <div className={styles.left}>
+        <Link to="/">
+          <Logo />
+        </Link>
+      </div>
+
+      <div className={styles.center}>
+        <Search
+          placeholder="Search a song of your choice"
+          searchData={searchData}
+        />
+      </div>
+
+      <div className={styles.right}>
+        <Button text="Give Feedback" />
+      </div>
     </nav>
   );
 }

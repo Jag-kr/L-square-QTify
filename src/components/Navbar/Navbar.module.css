@@ -1,9 +1,26 @@
 .navbar {
-  background-color: var(--color-primary);
   height: 74px;
-  width: 100vw;
-  padding: 0px 32px;
+  background-color: var(--color-primary);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 0 32px;
+}
+
+/* LEFT */
+.left {
+  display: flex;
+  align-items: center;
+}
+
+/* CENTER (THIS FIXES ALIGNMENT) */
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  align-items: center;
 }
